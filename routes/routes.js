@@ -1,3 +1,5 @@
+const Model = require('../model/model');
+
 const express = require('express');
 
 const router = express.Router()
@@ -9,9 +11,9 @@ const router = express.Router()
 //Client is our front end user
 
 //Post Method
-router.post('/post', (req, res) => {
-    res.send('Post API')
-})
+// router.post('/post', (req, res) => {
+//     res.send('Post API')
+// })
 
 //Get all Method
 router.get('/getAll', (req, res) => {
@@ -33,5 +35,20 @@ router.delete('/delete/:id', (req, res) => {
     res.send('Delete by ID API')
 })
 
+// post using the model
+router.post('/post', async (req, res) => {
+    const data = new Model({
+        name: req.body.name,
+        quantity: req.body.quantity
+    })
+
+    try{
+        const dataToSave = await data.save();
+        res.status(200).json(dataToSave);
+    }
+    catch(error){
+        res.status(400).json({message: error.message})
+    }
+})
 
 module.exports = router;
