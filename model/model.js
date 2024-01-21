@@ -6,7 +6,7 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     quantity: {
-        //required: true,
+        required: true,
         type: Number
     }
 })
